@@ -1,0 +1,383 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.waves.mapper.TStaffMapper">
+  <resultMap id="BaseResultMap" type="com.waves.model.TStaff">
+    <id column="ID" jdbcType="CHAR" property="id" />
+    <result column="NAME" jdbcType="CHAR" property="name" />
+    <result column="PASSWORD" jdbcType="CHAR" property="password" />
+    <result column="DEPARTMENT" jdbcType="CHAR" property="department" />
+    <result column="DATE" jdbcType="CHAR" property="date" />
+    <result column="RANK" jdbcType="CHAR" property="rank" />
+    <result column="STATE" jdbcType="CHAR" property="state" />
+    <result column="LEVEL" jdbcType="INTEGER" property="level" />
+    <result column="GOVERNOR" jdbcType="CHAR" property="governor" />
+    <result column="GOVERNOR_ID" jdbcType="CHAR" property="governorId" />
+    <result column="HEAD" jdbcType="CHAR" property="head" />
+    <result column="HEAD_ID" jdbcType="CHAR" property="headId" />
+    <result column="SUPERIOR" jdbcType="CHAR" property="superior" />
+    <result column="SUPERIOR_ID" jdbcType="CHAR" property="superiorId" />
+    <result column="SUM" jdbcType="DOUBLE" property="sum" />
+    <result column="DEVIATION" jdbcType="DOUBLE" property="deviation" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    ID, NAME, PASSWORD, DEPARTMENT, DATE, RANK, STATE, LEVEL, GOVERNOR, GOVERNOR_ID, 
+    HEAD, HEAD_ID, SUPERIOR, SUPERIOR_ID, SUM, DEVIATION
+  </sql>
+  <select id="selectByExample" parameterType="com.waves.model.TStaffExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from T_STAFF
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from T_STAFF
+    where ID = #{id,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from T_STAFF
+    where ID = #{id,jdbcType=CHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.waves.model.TStaffExample">
+    delete from T_STAFF
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.waves.model.TStaff">
+    insert into T_STAFF (ID, NAME, PASSWORD, DEPARTMENT, 
+      DATE, RANK, STATE, LEVEL, 
+      GOVERNOR, GOVERNOR_ID, HEAD, 
+      HEAD_ID, SUPERIOR, SUPERIOR_ID, 
+      SUM, DEVIATION)
+    values (#{id,jdbcType=CHAR}, #{name,jdbcType=CHAR}, #{password,jdbcType=CHAR}, #{department,jdbcType=CHAR}, 
+      #{date,jdbcType=CHAR}, #{rank,jdbcType=CHAR}, #{state,jdbcType=CHAR}, #{level,jdbcType=INTEGER}, 
+      #{governor,jdbcType=CHAR}, #{governorId,jdbcType=CHAR}, #{head,jdbcType=CHAR}, 
+      #{headId,jdbcType=CHAR}, #{superior,jdbcType=CHAR}, #{superiorId,jdbcType=CHAR}, 
+      #{sum,jdbcType=DOUBLE}, #{deviation,jdbcType=DOUBLE})
+  </insert>
+  <insert id="insertSelective" parameterType="com.waves.model.TStaff">
+    insert into T_STAFF
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="name != null">
+        NAME,
+      </if>
+      <if test="password != null">
+        PASSWORD,
+      </if>
+      <if test="department != null">
+        DEPARTMENT,
+      </if>
+      <if test="date != null">
+        DATE,
+      </if>
+      <if test="rank != null">
+        RANK,
+      </if>
+      <if test="state != null">
+        STATE,
+      </if>
+      <if test="level != null">
+        LEVEL,
+      </if>
+      <if test="governor != null">
+        GOVERNOR,
+      </if>
+      <if test="governorId != null">
+        GOVERNOR_ID,
+      </if>
+      <if test="head != null">
+        HEAD,
+      </if>
+      <if test="headId != null">
+        HEAD_ID,
+      </if>
+      <if test="superior != null">
+        SUPERIOR,
+      </if>
+      <if test="superiorId != null">
+        SUPERIOR_ID,
+      </if>
+      <if test="sum != null">
+        SUM,
+      </if>
+      <if test="deviation != null">
+        DEVIATION,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=CHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=CHAR},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=CHAR},
+      </if>
+      <if test="department != null">
+        #{department,jdbcType=CHAR},
+      </if>
+      <if test="date != null">
+        #{date,jdbcType=CHAR},
+      </if>
+      <if test="rank != null">
+        #{rank,jdbcType=CHAR},
+      </if>
+      <if test="state != null">
+        #{state,jdbcType=CHAR},
+      </if>
+      <if test="level != null">
+        #{level,jdbcType=INTEGER},
+      </if>
+      <if test="governor != null">
+        #{governor,jdbcType=CHAR},
+      </if>
+      <if test="governorId != null">
+        #{governorId,jdbcType=CHAR},
+      </if>
+      <if test="head != null">
+        #{head,jdbcType=CHAR},
+      </if>
+      <if test="headId != null">
+        #{headId,jdbcType=CHAR},
+      </if>
+      <if test="superior != null">
+        #{superior,jdbcType=CHAR},
+      </if>
+      <if test="superiorId != null">
+        #{superiorId,jdbcType=CHAR},
+      </if>
+      <if test="sum != null">
+        #{sum,jdbcType=DOUBLE},
+      </if>
+      <if test="deviation != null">
+        #{deviation,jdbcType=DOUBLE},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.waves.model.TStaffExample" resultType="java.lang.Long">
+    select count(*) from T_STAFF
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update T_STAFF
+    <set>
+      <if test="record.id != null">
+        ID = #{record.id,jdbcType=CHAR},
+      </if>
+      <if test="record.name != null">
+        NAME = #{record.name,jdbcType=CHAR},
+      </if>
+      <if test="record.password != null">
+        PASSWORD = #{record.password,jdbcType=CHAR},
+      </if>
+      <if test="record.department != null">
+        DEPARTMENT = #{record.department,jdbcType=CHAR},
+      </if>
+      <if test="record.date != null">
+        DATE = #{record.date,jdbcType=CHAR},
+      </if>
+      <if test="record.rank != null">
+        RANK = #{record.rank,jdbcType=CHAR},
+      </if>
+      <if test="record.state != null">
+        STATE = #{record.state,jdbcType=CHAR},
+      </if>
+      <if test="record.level != null">
+        LEVEL = #{record.level,jdbcType=INTEGER},
+      </if>
+      <if test="record.governor != null">
+        GOVERNOR = #{record.governor,jdbcType=CHAR},
+      </if>
+      <if test="record.governorId != null">
+        GOVERNOR_ID = #{record.governorId,jdbcType=CHAR},
+      </if>
+      <if test="record.head != null">
+        HEAD = #{record.head,jdbcType=CHAR},
+      </if>
+      <if test="record.headId != null">
+        HEAD_ID = #{record.headId,jdbcType=CHAR},
+      </if>
+      <if test="record.superior != null">
+        SUPERIOR = #{record.superior,jdbcType=CHAR},
+      </if>
+      <if test="record.superiorId != null">
+        SUPERIOR_ID = #{record.superiorId,jdbcType=CHAR},
+      </if>
+      <if test="record.sum != null">
+        SUM = #{record.sum,jdbcType=DOUBLE},
+      </if>
+      <if test="record.deviation != null">
+        DEVIATION = #{record.deviation,jdbcType=DOUBLE},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update T_STAFF
+    set ID = #{record.id,jdbcType=CHAR},
+      NAME = #{record.name,jdbcType=CHAR},
+      PASSWORD = #{record.password,jdbcType=CHAR},
+      DEPARTMENT = #{record.department,jdbcType=CHAR},
+      DATE = #{record.date,jdbcType=CHAR},
+      RANK = #{record.rank,jdbcType=CHAR},
+      STATE = #{record.state,jdbcType=CHAR},
+      LEVEL = #{record.level,jdbcType=INTEGER},
+      GOVERNOR = #{record.governor,jdbcType=CHAR},
+      GOVERNOR_ID = #{record.governorId,jdbcType=CHAR},
+      HEAD = #{record.head,jdbcType=CHAR},
+      HEAD_ID = #{record.headId,jdbcType=CHAR},
+      SUPERIOR = #{record.superior,jdbcType=CHAR},
+      SUPERIOR_ID = #{record.superiorId,jdbcType=CHAR},
+      SUM = #{record.sum,jdbcType=DOUBLE},
+      DEVIATION = #{record.deviation,jdbcType=DOUBLE}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.waves.model.TStaff">
+    update T_STAFF
+    <set>
+      <if test="name != null">
+        NAME = #{name,jdbcType=CHAR},
+      </if>
+      <if test="password != null">
+        PASSWORD = #{password,jdbcType=CHAR},
+      </if>
+      <if test="department != null">
+        DEPARTMENT = #{department,jdbcType=CHAR},
+      </if>
+      <if test="date != null">
+        DATE = #{date,jdbcType=CHAR},
+      </if>
+      <if test="rank != null">
+        RANK = #{rank,jdbcType=CHAR},
+      </if>
+      <if test="state != null">
+        STATE = #{state,jdbcType=CHAR},
+      </if>
+      <if test="level != null">
+        LEVEL = #{level,jdbcType=INTEGER},
+      </if>
+      <if test="governor != null">
+        GOVERNOR = #{governor,jdbcType=CHAR},
+      </if>
+      <if test="governorId != null">
+        GOVERNOR_ID = #{governorId,jdbcType=CHAR},
+      </if>
+      <if test="head != null">
+        HEAD = #{head,jdbcType=CHAR},
+      </if>
+      <if test="headId != null">
+        HEAD_ID = #{headId,jdbcType=CHAR},
+      </if>
+      <if test="superior != null">
+        SUPERIOR = #{superior,jdbcType=CHAR},
+      </if>
+      <if test="superiorId != null">
+        SUPERIOR_ID = #{superiorId,jdbcType=CHAR},
+      </if>
+      <if test="sum != null">
+        SUM = #{sum,jdbcType=DOUBLE},
+      </if>
+      <if test="deviation != null">
+        DEVIATION = #{deviation,jdbcType=DOUBLE},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.waves.model.TStaff">
+    update T_STAFF
+    set NAME = #{name,jdbcType=CHAR},
+      PASSWORD = #{password,jdbcType=CHAR},
+      DEPARTMENT = #{department,jdbcType=CHAR},
+      DATE = #{date,jdbcType=CHAR},
+      RANK = #{rank,jdbcType=CHAR},
+      STATE = #{state,jdbcType=CHAR},
+      LEVEL = #{level,jdbcType=INTEGER},
+      GOVERNOR = #{governor,jdbcType=CHAR},
+      GOVERNOR_ID = #{governorId,jdbcType=CHAR},
+      HEAD = #{head,jdbcType=CHAR},
+      HEAD_ID = #{headId,jdbcType=CHAR},
+      SUPERIOR = #{superior,jdbcType=CHAR},
+      SUPERIOR_ID = #{superiorId,jdbcType=CHAR},
+      SUM = #{sum,jdbcType=DOUBLE},
+      DEVIATION = #{deviation,jdbcType=DOUBLE}
+    where ID = #{id,jdbcType=CHAR}
+  </update>
+</mapper>

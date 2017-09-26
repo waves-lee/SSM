@@ -1,0 +1,416 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.waves.mapper.TEvaluateMapper">
+  <resultMap id="BaseResultMap" type="com.waves.model.TEvaluate">
+    <id column="EVALUATED_ID" jdbcType="CHAR" property="evaluatedId" />
+    <id column="APPRAISER_ID" jdbcType="CHAR" property="appraiserId" />
+    <result column="EVALUATED" jdbcType="CHAR" property="evaluated" />
+    <result column="DEPARTMENT" jdbcType="CHAR" property="department" />
+    <result column="RANK" jdbcType="CHAR" property="rank" />
+    <result column="APPRAISER" jdbcType="CHAR" property="appraiser" />
+    <result column="TYPE" jdbcType="CHAR" property="type" />
+    <result column="STATE" jdbcType="CHAR" property="state" />
+    <result column="SCORE_1" jdbcType="INTEGER" property="score1" />
+    <result column="SCORE_2" jdbcType="INTEGER" property="score2" />
+    <result column="SCORE_3" jdbcType="INTEGER" property="score3" />
+    <result column="SCORE_4" jdbcType="INTEGER" property="score4" />
+    <result column="SCORE_5" jdbcType="INTEGER" property="score5" />
+    <result column="SCORE_6" jdbcType="INTEGER" property="score6" />
+    <result column="SCORE_7" jdbcType="INTEGER" property="score7" />
+    <result column="SCORE_8" jdbcType="INTEGER" property="score8" />
+    <result column="SCORE_9" jdbcType="INTEGER" property="score9" />
+    <result column="SUM" jdbcType="INTEGER" property="sum" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    EVALUATED_ID, APPRAISER_ID, EVALUATED, DEPARTMENT, RANK, APPRAISER, TYPE, STATE, 
+    SCORE_1, SCORE_2, SCORE_3, SCORE_4, SCORE_5, SCORE_6, SCORE_7, SCORE_8, SCORE_9, 
+    SUM
+  </sql>
+  <select id="selectByExample" parameterType="com.waves.model.TEvaluateExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from T_EVALUATE
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="com.waves.model.TEvaluateKey" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from T_EVALUATE
+    where EVALUATED_ID = #{evaluatedId,jdbcType=CHAR}
+      and APPRAISER_ID = #{appraiserId,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.waves.model.TEvaluateKey">
+    delete from T_EVALUATE
+    where EVALUATED_ID = #{evaluatedId,jdbcType=CHAR}
+      and APPRAISER_ID = #{appraiserId,jdbcType=CHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.waves.model.TEvaluateExample">
+    delete from T_EVALUATE
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.waves.model.TEvaluate">
+    insert into T_EVALUATE (EVALUATED_ID, APPRAISER_ID, EVALUATED, 
+      DEPARTMENT, RANK, APPRAISER, 
+      TYPE, STATE, SCORE_1, SCORE_2, 
+      SCORE_3, SCORE_4, SCORE_5, 
+      SCORE_6, SCORE_7, SCORE_8, 
+      SCORE_9, SUM)
+    values (#{evaluatedId,jdbcType=CHAR}, #{appraiserId,jdbcType=CHAR}, #{evaluated,jdbcType=CHAR}, 
+      #{department,jdbcType=CHAR}, #{rank,jdbcType=CHAR}, #{appraiser,jdbcType=CHAR}, 
+      #{type,jdbcType=CHAR}, #{state,jdbcType=CHAR}, #{score1,jdbcType=INTEGER}, #{score2,jdbcType=INTEGER}, 
+      #{score3,jdbcType=INTEGER}, #{score4,jdbcType=INTEGER}, #{score5,jdbcType=INTEGER}, 
+      #{score6,jdbcType=INTEGER}, #{score7,jdbcType=INTEGER}, #{score8,jdbcType=INTEGER}, 
+      #{score9,jdbcType=INTEGER}, #{sum,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.waves.model.TEvaluate">
+    insert into T_EVALUATE
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="evaluatedId != null">
+        EVALUATED_ID,
+      </if>
+      <if test="appraiserId != null">
+        APPRAISER_ID,
+      </if>
+      <if test="evaluated != null">
+        EVALUATED,
+      </if>
+      <if test="department != null">
+        DEPARTMENT,
+      </if>
+      <if test="rank != null">
+        RANK,
+      </if>
+      <if test="appraiser != null">
+        APPRAISER,
+      </if>
+      <if test="type != null">
+        TYPE,
+      </if>
+      <if test="state != null">
+        STATE,
+      </if>
+      <if test="score1 != null">
+        SCORE_1,
+      </if>
+      <if test="score2 != null">
+        SCORE_2,
+      </if>
+      <if test="score3 != null">
+        SCORE_3,
+      </if>
+      <if test="score4 != null">
+        SCORE_4,
+      </if>
+      <if test="score5 != null">
+        SCORE_5,
+      </if>
+      <if test="score6 != null">
+        SCORE_6,
+      </if>
+      <if test="score7 != null">
+        SCORE_7,
+      </if>
+      <if test="score8 != null">
+        SCORE_8,
+      </if>
+      <if test="score9 != null">
+        SCORE_9,
+      </if>
+      <if test="sum != null">
+        SUM,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="evaluatedId != null">
+        #{evaluatedId,jdbcType=CHAR},
+      </if>
+      <if test="appraiserId != null">
+        #{appraiserId,jdbcType=CHAR},
+      </if>
+      <if test="evaluated != null">
+        #{evaluated,jdbcType=CHAR},
+      </if>
+      <if test="department != null">
+        #{department,jdbcType=CHAR},
+      </if>
+      <if test="rank != null">
+        #{rank,jdbcType=CHAR},
+      </if>
+      <if test="appraiser != null">
+        #{appraiser,jdbcType=CHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=CHAR},
+      </if>
+      <if test="state != null">
+        #{state,jdbcType=CHAR},
+      </if>
+      <if test="score1 != null">
+        #{score1,jdbcType=INTEGER},
+      </if>
+      <if test="score2 != null">
+        #{score2,jdbcType=INTEGER},
+      </if>
+      <if test="score3 != null">
+        #{score3,jdbcType=INTEGER},
+      </if>
+      <if test="score4 != null">
+        #{score4,jdbcType=INTEGER},
+      </if>
+      <if test="score5 != null">
+        #{score5,jdbcType=INTEGER},
+      </if>
+      <if test="score6 != null">
+        #{score6,jdbcType=INTEGER},
+      </if>
+      <if test="score7 != null">
+        #{score7,jdbcType=INTEGER},
+      </if>
+      <if test="score8 != null">
+        #{score8,jdbcType=INTEGER},
+      </if>
+      <if test="score9 != null">
+        #{score9,jdbcType=INTEGER},
+      </if>
+      <if test="sum != null">
+        #{sum,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.waves.model.TEvaluateExample" resultType="java.lang.Long">
+    select count(*) from T_EVALUATE
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update T_EVALUATE
+    <set>
+      <if test="record.evaluatedId != null">
+        EVALUATED_ID = #{record.evaluatedId,jdbcType=CHAR},
+      </if>
+      <if test="record.appraiserId != null">
+        APPRAISER_ID = #{record.appraiserId,jdbcType=CHAR},
+      </if>
+      <if test="record.evaluated != null">
+        EVALUATED = #{record.evaluated,jdbcType=CHAR},
+      </if>
+      <if test="record.department != null">
+        DEPARTMENT = #{record.department,jdbcType=CHAR},
+      </if>
+      <if test="record.rank != null">
+        RANK = #{record.rank,jdbcType=CHAR},
+      </if>
+      <if test="record.appraiser != null">
+        APPRAISER = #{record.appraiser,jdbcType=CHAR},
+      </if>
+      <if test="record.type != null">
+        TYPE = #{record.type,jdbcType=CHAR},
+      </if>
+      <if test="record.state != null">
+        STATE = #{record.state,jdbcType=CHAR},
+      </if>
+      <if test="record.score1 != null">
+        SCORE_1 = #{record.score1,jdbcType=INTEGER},
+      </if>
+      <if test="record.score2 != null">
+        SCORE_2 = #{record.score2,jdbcType=INTEGER},
+      </if>
+      <if test="record.score3 != null">
+        SCORE_3 = #{record.score3,jdbcType=INTEGER},
+      </if>
+      <if test="record.score4 != null">
+        SCORE_4 = #{record.score4,jdbcType=INTEGER},
+      </if>
+      <if test="record.score5 != null">
+        SCORE_5 = #{record.score5,jdbcType=INTEGER},
+      </if>
+      <if test="record.score6 != null">
+        SCORE_6 = #{record.score6,jdbcType=INTEGER},
+      </if>
+      <if test="record.score7 != null">
+        SCORE_7 = #{record.score7,jdbcType=INTEGER},
+      </if>
+      <if test="record.score8 != null">
+        SCORE_8 = #{record.score8,jdbcType=INTEGER},
+      </if>
+      <if test="record.score9 != null">
+        SCORE_9 = #{record.score9,jdbcType=INTEGER},
+      </if>
+      <if test="record.sum != null">
+        SUM = #{record.sum,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update T_EVALUATE
+    set EVALUATED_ID = #{record.evaluatedId,jdbcType=CHAR},
+      APPRAISER_ID = #{record.appraiserId,jdbcType=CHAR},
+      EVALUATED = #{record.evaluated,jdbcType=CHAR},
+      DEPARTMENT = #{record.department,jdbcType=CHAR},
+      RANK = #{record.rank,jdbcType=CHAR},
+      APPRAISER = #{record.appraiser,jdbcType=CHAR},
+      TYPE = #{record.type,jdbcType=CHAR},
+      STATE = #{record.state,jdbcType=CHAR},
+      SCORE_1 = #{record.score1,jdbcType=INTEGER},
+      SCORE_2 = #{record.score2,jdbcType=INTEGER},
+      SCORE_3 = #{record.score3,jdbcType=INTEGER},
+      SCORE_4 = #{record.score4,jdbcType=INTEGER},
+      SCORE_5 = #{record.score5,jdbcType=INTEGER},
+      SCORE_6 = #{record.score6,jdbcType=INTEGER},
+      SCORE_7 = #{record.score7,jdbcType=INTEGER},
+      SCORE_8 = #{record.score8,jdbcType=INTEGER},
+      SCORE_9 = #{record.score9,jdbcType=INTEGER},
+      SUM = #{record.sum,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.waves.model.TEvaluate">
+    update T_EVALUATE
+    <set>
+      <if test="evaluated != null">
+        EVALUATED = #{evaluated,jdbcType=CHAR},
+      </if>
+      <if test="department != null">
+        DEPARTMENT = #{department,jdbcType=CHAR},
+      </if>
+      <if test="rank != null">
+        RANK = #{rank,jdbcType=CHAR},
+      </if>
+      <if test="appraiser != null">
+        APPRAISER = #{appraiser,jdbcType=CHAR},
+      </if>
+      <if test="type != null">
+        TYPE = #{type,jdbcType=CHAR},
+      </if>
+      <if test="state != null">
+        STATE = #{state,jdbcType=CHAR},
+      </if>
+      <if test="score1 != null">
+        SCORE_1 = #{score1,jdbcType=INTEGER},
+      </if>
+      <if test="score2 != null">
+        SCORE_2 = #{score2,jdbcType=INTEGER},
+      </if>
+      <if test="score3 != null">
+        SCORE_3 = #{score3,jdbcType=INTEGER},
+      </if>
+      <if test="score4 != null">
+        SCORE_4 = #{score4,jdbcType=INTEGER},
+      </if>
+      <if test="score5 != null">
+        SCORE_5 = #{score5,jdbcType=INTEGER},
+      </if>
+      <if test="score6 != null">
+        SCORE_6 = #{score6,jdbcType=INTEGER},
+      </if>
+      <if test="score7 != null">
+        SCORE_7 = #{score7,jdbcType=INTEGER},
+      </if>
+      <if test="score8 != null">
+        SCORE_8 = #{score8,jdbcType=INTEGER},
+      </if>
+      <if test="score9 != null">
+        SCORE_9 = #{score9,jdbcType=INTEGER},
+      </if>
+      <if test="sum != null">
+        SUM = #{sum,jdbcType=INTEGER},
+      </if>
+    </set>
+    where EVALUATED_ID = #{evaluatedId,jdbcType=CHAR}
+      and APPRAISER_ID = #{appraiserId,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.waves.model.TEvaluate">
+    update T_EVALUATE
+    set EVALUATED = #{evaluated,jdbcType=CHAR},
+      DEPARTMENT = #{department,jdbcType=CHAR},
+      RANK = #{rank,jdbcType=CHAR},
+      APPRAISER = #{appraiser,jdbcType=CHAR},
+      TYPE = #{type,jdbcType=CHAR},
+      STATE = #{state,jdbcType=CHAR},
+      SCORE_1 = #{score1,jdbcType=INTEGER},
+      SCORE_2 = #{score2,jdbcType=INTEGER},
+      SCORE_3 = #{score3,jdbcType=INTEGER},
+      SCORE_4 = #{score4,jdbcType=INTEGER},
+      SCORE_5 = #{score5,jdbcType=INTEGER},
+      SCORE_6 = #{score6,jdbcType=INTEGER},
+      SCORE_7 = #{score7,jdbcType=INTEGER},
+      SCORE_8 = #{score8,jdbcType=INTEGER},
+      SCORE_9 = #{score9,jdbcType=INTEGER},
+      SUM = #{sum,jdbcType=INTEGER}
+    where EVALUATED_ID = #{evaluatedId,jdbcType=CHAR}
+      and APPRAISER_ID = #{appraiserId,jdbcType=CHAR}
+  </update>
+</mapper>
